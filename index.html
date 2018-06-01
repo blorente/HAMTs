@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>HAMTers for a day</title>
+<meta name="author" content="(Borja)"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/reveal.js/3.0.0/css/reveal.css"/>
+
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/reveal.js/3.0.0/css/theme/white.css" id="theme"/>
+
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'http://cdn.jsdelivr.net/reveal.js/3.0.0/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide"><h1 class="title">HAMTers for a day</h1><h2 class="author">Borja</h2><p class="date">Created: 2018-06-01 Fri 14:16</p>
+</section>
+<section id="table-of-contents">
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#/slide-orgc050bfe">HAMTers for a day</a></li>
+<li><a href="#/slide-org3461f16">The problem:</a></li>
+<li><a href="#/slide-orgf7d2f74">The solution: Hash tables</a>
+<ul>
+<li><a href="#/slide-org68511f1">Thank you for coming</a></li>
+</ul>
+</li>
+<li><a href="#/slide-orgc1a16f5">OK, but what about functional languages?</a>
+<ul>
+<li><a href="#/slide-orgbe1712b">Persistent data structures</a></li>
+<li><a href="#/slide-orgf15e13c">Hash tables do not persist well</a></li>
+</ul>
+</li>
+<li><a href="#/slide-org39934d9">Trees persist well, right?</a>
+<ul>
+<li><a href="#/slide-org37a839e">(Self Balancing) Binary Search Trees</a></li>
+<li><a href="#/slide-orgd3aa25d">Tries</a></li>
+<li><a href="#/slide-org8da7613">Tries</a></li>
+</ul>
+</li>
+<li><a href="#/slide-org2877747">Hash Array Mapped Tries</a>
+<ul>
+<li><a href="#/slide-org139277c">Implementation (Naive)</a></li>
+<li><a href="#/slide-org62af1e4">Implementation (Naive)</a></li>
+<li><a href="#/slide-orgfca0a10">Implementation (Compresed)</a></li>
+<li><a href="#/slide-orgc8e3d74">Insertion</a></li>
+<li><a href="#/slide-orgc629888">Collission</a></li>
+<li><a href="#/slide-org0e1c9d9">Performance (Common ops)</a></li>
+<li><a href="#/slide-orgd782d01">Performance (other)</a></li>
+</ul>
+</li>
+<li><a href="#/slide-org5089a07">Improvements</a></li>
+</ul>
+</div>
+</div>
+</section>
+
+<section>
+<section id="slide-orgc050bfe">
+<h2 id="orgc050bfe">HAMTers for a day</h2>
+
+</section>
+</section>
+<section>
+<section id="slide-org3461f16">
+<h2 id="org3461f16">The problem:</h2>
+<p>
+How do we implement <b>Associative Arrays</b>?
+</p>
+
+
+<blockquote nil>
+<p>
+In computer science, an <b>associative array</b> &#x2026; is an abstract data type
+composed of a collection of (key, value) pairs, such that <b>each possible
+key appears at most once</b> in the collection.
+ &#x2013; Wikipedia
+</p>
+</blockquote>
+
+
+</section>
+</section>
+<section>
+<section id="slide-orgf7d2f74">
+<h2 id="orgf7d2f74">The solution: Hash tables</h2>
+
+<div class="figure">
+<p><img src="./img/Hash table.png" alt="Hash table.png" width="50% :height: 50%" />
+</p>
+</div>
+
+</section>
+<section id="slide-org68511f1">
+<h3 id="org68511f1">Thank you for coming</h3>
+
+</section>
+</section>
+<section>
+<section id="slide-orgc1a16f5">
+<h2 id="orgc1a16f5">OK, but what about functional languages?</h2>
+<div class="outline-text-2" id="text-orgc1a16f5">
+</div>
+</section>
+<section id="slide-orgbe1712b">
+<h3 id="orgbe1712b">Persistent data structures</h3>
+
+<div class="figure">
+<p><img src="./img/Persistent Bintree.gif" alt="Persistent Bintree.gif" />
+</p>
+</div>
+
+<p>
+<a href="https://www.sciencedirect.com/science/article/pii/0022000089900342">Making Data Structures Persistent (Driscoll et.al., 1989)</a>
+</p>
+
+</section>
+<section id="slide-orgf15e13c">
+<h3 id="orgf15e13c">Hash tables do not persist well</h3>
+
+</section>
+</section>
+<section>
+<section id="slide-org39934d9">
+<h2 id="org39934d9">Trees persist well, right?</h2>
+<div class="outline-text-2" id="text-org39934d9">
+</div>
+</section>
+<section id="slide-org37a839e">
+<h3 id="org37a839e">(Self Balancing) Binary Search Trees</h3>
+
+<div class="figure">
+<p><img src="./img/BST.jpg" alt="BST.jpg" width="50% :height: 50%" />
+</p>
+</div>
+
+<p>
+<a href="https://www.westpoint.edu/eecs/SiteAssets/SitePages/Faculty%20Publication%20Documents/Okasaki/jfp99redblack.pdf">Red-Black Trees in a Functional Setting (Okasaki, 1999)</a>
+<a href="http://www.cambridge.org/us/academic/subjects/computer-science/programming-languages-and-applied-logic/purely-functional-data-structures?format=PB&amp;isbn=9780521663502#KUVztfMwEE6q0U2x.97">Purely Functional Data Structures (Okasaki, 1999)</a>
+</p>
+
+</section>
+<section id="slide-orgd3aa25d">
+<h3 id="orgd3aa25d">Tries</h3>
+
+<div class="figure">
+<p><img src="./img/Trie-high-level.jpg" alt="Trie-high-level.jpg" width="70% :height: 70%" />
+</p>
+</div>
+
+<p>
+<a href="https://dl.acm.org/citation.cfm?id=1457895">File searching using variable length keys (Briandais, 1959)</a>
+</p>
+</section>
+<section id="slide-org8da7613">
+<h3 id="org8da7613">Tries</h3>
+<p>
+Good
+</p>
+
+<ul>
+<li>Lookup time is independent of the size of the set.</li>
+<li>Index nodes are really small, since we don't store whole keys.</li>
+<li>The internal structure models the domain.</li>
+<li>Useful information with partial traversal (automplete).</li>
+
+</ul>
+
+<p>
+Bad
+</p>
+<ul>
+<li>Deep trees in degenerate cases.</li>
+<li>Bad $ locality.</li>
+<li>It's hard to find a worse choice for a name. It's a bad name.</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org2877747">
+<h2 id="org2877747">Hash Array Mapped Tries</h2>
+<p>
+An implementation of Tries with minimal tradeoffs
+and good persistence characteristics.
+</p>
+
+<ul>
+<li><a href="https://infoscience.epfl.ch/record/64394?ln=en">Fast and Space Efficient Trie Searches (Bagwell, 2000)</a></li>
+<li><a href="https://infoscience.epfl.ch/record/64398?ln=en">Ideal Hash Trees (Bagwell, 2001)</a></li>
+
+</ul>
+
+<p>
+As seen on:
+</p>
+
+
+<div class="figure">
+<p><img src="./img/clojure.png" alt="clojure.png" width="25%" style="position:absolute;left:0%" />
+</p>
+</div>
+
+<div class="figure">
+<p><img src="./img/scala.jpeg" alt="scala.jpeg" width="25%" height="300em" style="postion:absolute;left:30%;top:50%" />
+</p>
+</div>
+
+<div class="figure">
+<p><img src="./img/haskell.jpg" alt="haskell.jpg" width="25%" style="position:absolute;left:70%;top:53%" />
+</p>
+</div>
+
+
+</section>
+<section id="slide-org139277c">
+<h3 id="org139277c">Implementation (Naive)</h3>
+
+<div class="figure">
+<p><img src="./img/Hash Factory.jpg" alt="Hash Factory.jpg" width="70% :height: 70%" />
+</p>
+</div>
+
+</section>
+<section id="slide-org62af1e4">
+<h3 id="org62af1e4">Implementation (Naive)</h3>
+
+<div class="figure">
+<p><img src="./img/Trie-naive.jpg" alt="Trie-naive.jpg" width="70% :height: 70%" />
+</p>
+</div>
+
+</section>
+<section id="slide-orgfca0a10">
+<h3 id="orgfca0a10">Implementation (Compresed)</h3>
+
+<div class="figure">
+<p><img src="./img/Hash.jpg" alt="Hash.jpg" width="70% :height: 70%" />
+</p>
+</div>
+
+</section>
+<section id="slide-orgc8e3d74">
+<h3 id="orgc8e3d74">Insertion</h3>
+
+<div class="figure">
+<p><img src="./img/Insertion.jpg" alt="Insertion.jpg" />
+</p>
+</div>
+
+</section>
+<section id="slide-orgc629888">
+<h3 id="orgc629888">Collission</h3>
+
+</section>
+<section id="slide-org0e1c9d9">
+<h3 id="org0e1c9d9">Performance (Common ops)</h3>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Operation</th>
+<th scope="col" class="org-left">Speed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">empty</td>
+<td class="org-left">O(1)</td>
+</tr>
+
+<tr>
+<td class="org-left">insertion</td>
+<td class="org-left">O(d)</td>
+</tr>
+
+<tr>
+<td class="org-left">lookup</td>
+<td class="org-left">O(d)</td>
+</tr>
+
+<tr>
+<td class="org-left">deletion</td>
+<td class="org-left">O(d)</td>
+</tr>
+
+<tr>
+<td class="org-left">iterate</td>
+<td class="org-left">O(n)</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+Where:
+</p>
+<ul>
+<li><p>
+d: depth of the new node
+</p>
+
+<p>
+(bounded by <code>hash length / bits per level</code>)
+</p></li>
+<li>n: number of elements in the collection</li>
+
+</ul>
+
+</section>
+<section id="slide-orgd782d01">
+<h3 id="orgd782d01">Performance (other)</h3>
+<ul>
+<li>Most of the time, lookups are O(d) since there are usually no collissions.</li>
+<li>Depends on how well the hash function distributes the elements.</li>
+<li>Relies on <code>popcount</code> to lookup efficiently.</li>
+<li>Cheap persistence, since index nodes are small.</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org5089a07">
+<h2 id="org5089a07">Improvements</h2>
+<p>
+<a href="https://infoscience.epfl.ch/record/166908/">Cache-Aware Lock-Free Concurrent Hash Tries (Prokopec, Bagwell, Odersky 2011)</a>
+</p>
+
+<p>
+An implementation of HAMTs to support concurrent lock-free atomic operations.
+</p>
+
+<p>
+<a href="https://dl.acm.org/citation.cfm?id=2814312">Optimizing hash-array mapped tries for fast and lean immutable JVM collections (Steindorfer, 2015)</a>
+</p>
+
+<p>
+Exploiting localoty by separating bitmasks by kind.
+</p>
+</section>
+</section>
+</div>
+</div>
+<script src="http://cdn.jsdelivr.net/reveal.js/3.0.0/lib/js/head.min.js"></script>
+<script src="http://cdn.jsdelivr.net/reveal.js/3.0.0/js/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: false,
+center: true,
+slideNumber: 'c',
+rollingLinks: false,
+keyboard: true,
+overview: true,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+transitionSpeed: 'default',
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: '' // Location of socket.io server
+},
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: 'http://cdn.jsdelivr.net/reveal.js/3.0.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+ { src: 'http://cdn.jsdelivr.net/reveal.js/3.0.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'http://cdn.jsdelivr.net/reveal.js/3.0.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'http://cdn.jsdelivr.net/reveal.js/3.0.0/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: 'http://cdn.jsdelivr.net/reveal.js/3.0.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
+});
+</script>
+</body>
+</html>
