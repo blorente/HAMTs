@@ -26,53 +26,49 @@
 <body>
 <div class="reveal">
 <div class="slides">
-<section id="sec-title-slide"><h1 class="title">HAMTers for a day</h1><h2 class="author">Borja Lorente</h2><p class="date">Created: 2018-06-01 Fri 15:23</p>
+<section id="sec-title-slide"><h1 class="title">HAMTers for a day</h1><h2 class="author">Borja Lorente</h2><p class="date">Created: 2018-06-01 Fri 15:38</p>
 </section>
 <section id="table-of-contents">
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#/slide-org4056665">Prelude</a></li>
-<li><a href="#/slide-orgdb57d7d">The problem:</a></li>
-<li><a href="#/slide-org9b96d22">The solution: Hash tables</a>
+<li><a href="#/slide-org1169d65">Prelude</a></li>
+<li><a href="#/slide-orgd021efa">The problem:</a></li>
+<li><a href="#/slide-orgf3c9081">The solution: Hash tables</a></li>
+<li><a href="#/slide-org5fbc01d">OK, but what about functional languages?</a>
 <ul>
-<li><a href="#/slide-org5b1ee51">Thank you for coming</a></li>
+<li><a href="#/slide-org15e522e">Persistent data structures</a></li>
+<li><a href="#/slide-org951170a">Hash tables do not persist well</a></li>
 </ul>
 </li>
-<li><a href="#/slide-org8bff067">OK, but what about functional languages?</a>
+<li><a href="#/slide-orgc77e8b4">Trees persist well, right?</a>
 <ul>
-<li><a href="#/slide-org2ef3816">Persistent data structures</a></li>
-<li><a href="#/slide-org693132d">Hash tables do not persist well</a></li>
+<li><a href="#/slide-org0ace290">(Self Balancing) Binary Search Trees</a></li>
+<li><a href="#/slide-org8b8d3ec">Tries</a></li>
+<li><a href="#/slide-orga7efdb2">Tries</a></li>
 </ul>
 </li>
-<li><a href="#/slide-orgaf063b8">Trees persist well, right?</a>
+<li><a href="#/slide-orgd050cbf">Hash Array Mapped Tries</a>
 <ul>
-<li><a href="#/slide-org13e7439">(Self Balancing) Binary Search Trees</a></li>
-<li><a href="#/slide-org67bff8c">Tries</a></li>
-<li><a href="#/slide-org12a7341">Tries</a></li>
+<li><a href="#/slide-org027b5af">Implementation (Naive)</a></li>
+<li><a href="#/slide-org046e325">Implementation (Naive)</a></li>
+<li><a href="#/slide-org4d5b2b5">Implementation (Compresed)</a></li>
+<li><a href="#/slide-org283f7c1">Insertion</a></li>
+<li><a href="#/slide-org4a021b3">Collission</a></li>
+<li><a href="#/slide-org64950ef">Performance (Common ops)</a></li>
+<li><a href="#/slide-orgd0c6416">Performance (other)</a></li>
 </ul>
 </li>
-<li><a href="#/slide-org8471f8c">Hash Array Mapped Tries</a>
-<ul>
-<li><a href="#/slide-orgcca3129">Implementation (Naive)</a></li>
-<li><a href="#/slide-orgd3d8e5b">Implementation (Naive)</a></li>
-<li><a href="#/slide-orge6581a9">Implementation (Compresed)</a></li>
-<li><a href="#/slide-org3efc4a8">Insertion</a></li>
-<li><a href="#/slide-orgfe06fb3">Collission</a></li>
-<li><a href="#/slide-org5f3bd3d">Performance (Common ops)</a></li>
-<li><a href="#/slide-org3d9fc61">Performance (other)</a></li>
-</ul>
-</li>
-<li><a href="#/slide-org6b6d659">Improvements</a></li>
+<li><a href="#/slide-orga4452b2">Improvements</a></li>
 </ul>
 </div>
 </div>
 </section>
 
 <section>
-<section id="slide-org4056665">
-<h2 id="org4056665">Prelude</h2>
+<section id="slide-org1169d65">
+<h2 id="org1169d65">Prelude</h2>
 <ul>
 <li>Author: Borja Lorente (<a href="https://blorente.me/">blorente.me</a>)</li>
 <li>Art: Nayla Novotny (<a href="https://www.artstation.com/naylanovotny">artstation.com/naylanovotny</a>)</li>
@@ -86,8 +82,8 @@ Get the slides <a href="https://blorente.me/HAMTs">blorente.me/HAMTs</a>
 </section>
 </section>
 <section>
-<section id="slide-orgdb57d7d">
-<h2 id="orgdb57d7d">The problem:</h2>
+<section id="slide-orgd021efa">
+<h2 id="orgd021efa">The problem:</h2>
 <p>
 How do we implement <b>Associative Arrays</b>?
 </p>
@@ -106,28 +102,28 @@ key appears at most once</b> in the collection.
 </section>
 </section>
 <section>
-<section id="slide-org9b96d22">
-<h2 id="org9b96d22">The solution: Hash tables</h2>
+<section id="slide-orgf3c9081">
+<h2 id="orgf3c9081">The solution: Hash tables</h2>
 
 <div class="figure">
 <p><img src="./img/Hash table.png" alt="Hash table.png" width="50% :height: 50%" />
 </p>
 </div>
 
-</section>
-<section id="slide-org5b1ee51">
-<h3 id="org5b1ee51">Thank you for coming</h3>
+<p>
+Thank you for coming
+</p>
 
 </section>
 </section>
 <section>
-<section id="slide-org8bff067">
-<h2 id="org8bff067">OK, but what about functional languages?</h2>
-<div class="outline-text-2" id="text-org8bff067">
+<section id="slide-org5fbc01d">
+<h2 id="org5fbc01d">OK, but what about functional languages?</h2>
+<div class="outline-text-2" id="text-org5fbc01d">
 </div>
 </section>
-<section id="slide-org2ef3816">
-<h3 id="org2ef3816">Persistent data structures</h3>
+<section id="slide-org15e522e">
+<h3 id="org15e522e">Persistent data structures</h3>
 
 <div class="figure">
 <p><img src="./img/Persistent Bintree.gif" alt="Persistent Bintree.gif" />
@@ -139,19 +135,19 @@ key appears at most once</b> in the collection.
 </p>
 
 </section>
-<section id="slide-org693132d">
-<h3 id="org693132d">Hash tables do not persist well</h3>
+<section id="slide-org951170a">
+<h3 id="org951170a">Hash tables do not persist well</h3>
 
 </section>
 </section>
 <section>
-<section id="slide-orgaf063b8">
-<h2 id="orgaf063b8">Trees persist well, right?</h2>
-<div class="outline-text-2" id="text-orgaf063b8">
+<section id="slide-orgc77e8b4">
+<h2 id="orgc77e8b4">Trees persist well, right?</h2>
+<div class="outline-text-2" id="text-orgc77e8b4">
 </div>
 </section>
-<section id="slide-org13e7439">
-<h3 id="org13e7439">(Self Balancing) Binary Search Trees</h3>
+<section id="slide-org0ace290">
+<h3 id="org0ace290">(Self Balancing) Binary Search Trees</h3>
 
 <div class="figure">
 <p><img src="./img/BST.jpg" alt="BST.jpg" width="50% :height: 50%" />
@@ -164,8 +160,8 @@ key appears at most once</b> in the collection.
 </p>
 
 </section>
-<section id="slide-org67bff8c">
-<h3 id="org67bff8c">Tries</h3>
+<section id="slide-org8b8d3ec">
+<h3 id="org8b8d3ec">Tries</h3>
 
 <div class="figure">
 <p><img src="./img/Trie-high-level.jpg" alt="Trie-high-level.jpg" width="70% :height: 70%" />
@@ -176,8 +172,8 @@ key appears at most once</b> in the collection.
 <a href="https://dl.acm.org/citation.cfm?id=1457895">File searching using variable length keys (Briandais, 1959)</a>
 </p>
 </section>
-<section id="slide-org12a7341">
-<h3 id="org12a7341">Tries</h3>
+<section id="slide-orga7efdb2">
+<h3 id="orga7efdb2">Tries</h3>
 <p>
 Good
 </p>
@@ -203,8 +199,8 @@ Bad
 </section>
 </section>
 <section>
-<section id="slide-org8471f8c">
-<h2 id="org8471f8c">Hash Array Mapped Tries</h2>
+<section id="slide-orgd050cbf">
+<h2 id="orgd050cbf">Hash Array Mapped Tries</h2>
 <p>
 An implementation of Tries with minimal tradeoffs
 and good persistence characteristics.
@@ -238,8 +234,8 @@ As seen on:
 
 
 </section>
-<section id="slide-orgcca3129">
-<h3 id="orgcca3129">Implementation (Naive)</h3>
+<section id="slide-org027b5af">
+<h3 id="org027b5af">Implementation (Naive)</h3>
 
 <div class="figure">
 <p><img src="./img/Hash Factory.jpg" alt="Hash Factory.jpg" width="70% :height: 70%" />
@@ -247,8 +243,8 @@ As seen on:
 </div>
 
 </section>
-<section id="slide-orgd3d8e5b">
-<h3 id="orgd3d8e5b">Implementation (Naive)</h3>
+<section id="slide-org046e325">
+<h3 id="org046e325">Implementation (Naive)</h3>
 
 <div class="figure">
 <p><img src="./img/Trie-naive.jpg" alt="Trie-naive.jpg" width="70% :height: 70%" />
@@ -256,8 +252,8 @@ As seen on:
 </div>
 
 </section>
-<section id="slide-orge6581a9">
-<h3 id="orge6581a9">Implementation (Compresed)</h3>
+<section id="slide-org4d5b2b5">
+<h3 id="org4d5b2b5">Implementation (Compresed)</h3>
 
 <div class="figure">
 <p><img src="./img/Hash.jpg" alt="Hash.jpg" width="70% :height: 70%" />
@@ -265,8 +261,8 @@ As seen on:
 </div>
 
 </section>
-<section id="slide-org3efc4a8">
-<h3 id="org3efc4a8">Insertion</h3>
+<section id="slide-org283f7c1">
+<h3 id="org283f7c1">Insertion</h3>
 
 <div class="figure">
 <p><img src="./img/Insertion.jpg" alt="Insertion.jpg" />
@@ -274,12 +270,12 @@ As seen on:
 </div>
 
 </section>
-<section id="slide-orgfe06fb3">
-<h3 id="orgfe06fb3">Collission</h3>
+<section id="slide-org4a021b3">
+<h3 id="org4a021b3">Collission</h3>
 
 </section>
-<section id="slide-org5f3bd3d">
-<h3 id="org5f3bd3d">Performance (Common ops)</h3>
+<section id="slide-org64950ef">
+<h3 id="org64950ef">Performance (Common ops)</h3>
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -338,8 +334,8 @@ d: depth of the new node
 </ul>
 
 </section>
-<section id="slide-org3d9fc61">
-<h3 id="org3d9fc61">Performance (other)</h3>
+<section id="slide-orgd0c6416">
+<h3 id="orgd0c6416">Performance (other)</h3>
 <ul>
 <li>Most of the time, lookups are O(d) since there are usually no collissions.</li>
 <li>Depends on how well the hash function distributes the elements.</li>
@@ -351,8 +347,8 @@ d: depth of the new node
 </section>
 </section>
 <section>
-<section id="slide-org6b6d659">
-<h2 id="org6b6d659">Improvements</h2>
+<section id="slide-orga4452b2">
+<h2 id="orga4452b2">Improvements</h2>
 <p>
 <a href="https://infoscience.epfl.ch/record/166908/">Cache-Aware Lock-Free Concurrent Hash Tries (Prokopec, Bagwell, Odersky 2011)</a>
 </p>
@@ -369,12 +365,9 @@ d: depth of the new node
 </p>
 
 <ul>
-<li>Exploiting locality by separating bitmasks by kind.</li>
+<li>Exploiting locality by separating bitmasks by kind. Index nodes have 2 bitmasks and arrays.</li>
 
 </ul>
-<p>
-Index nodes have 2 bitmasks and arrays.
-</p>
 </section>
 </section>
 </div>
